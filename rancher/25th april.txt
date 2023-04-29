@@ -1,0 +1,36 @@
+25th april 2023
+
+1. longhorn uninstalled thorugh kubectl on 10.0.2.19.sslip.io(manager)
+	kubectl create -f https://raw.githubusercontent.com/longhorn/longhorn/v1.4.1/uninstall/uninstall.yaml
+	kubectl get job/longhorn-uninstall -n longhorn-system -w ----> got stuck
+	ctrl+c
+	lomghorn version ----> kubectl describe deployment longhorn-frontend -n longhorn-system
+	kubectl delete -f https://raw.githubusercontent.com/longhorn/longhorn/v1.4.1/deploy/longhorn.yaml
+	kubectl delete -f https://raw.githubusercontent.com/longhorn/longhorn/v1.4.1/uninstall/uninstall.yaml
+	Longhorn uninstalled
+
+2. added 10.0.2.19.sslip.io to /etc/hosts
+
+3. Installing pre-requisites for longhorn:
+	a. container runtime compatible with Kubernetes (Docker v1.13+, containerd v1.3.7+, etc.)  ----> kubectl get nodes -o wide
+	b. kubectl version > 1.21
+	c. open-iscsi -----> 	c.1. apt-get install open-iscsi
+				c.2. systemctl enable iscsid
+				c.3. systemctl start iscsid
+				c.4. systemctl status iscsid = running
+	d. apt-get install nfs-common ----> 	cd /boot
+						ls
+						cat congig.... | grep  CONFIG_NFS_V4_1
+
+4. longhorn installed through GUI
+5. walkthrough gui
+6. creating volumes ----> iscsi = internet small computer systems interface
+				allows SCSI protocol to be carried over a TCP-based IP
+				iSCSI is a block protocol for storage networking and 
+				runs the very common SCSI storage protocol across a network connection which is usually Ethernet.
+
+
+7. k3s through gui 
+	7.1. internal ip set
+	7.2. manager's ip given in /etc/hosts
+	7.3. one node added.
